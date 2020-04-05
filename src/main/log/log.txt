@@ -1,0 +1,6 @@
+0 [http-nio-8080-exec-3] INFO  md.ciocana.hibernate.controller.StudentController  - /createStudent : student saved to database
+54868 [http-nio-8080-exec-8] INFO  md.ciocana.hibernate.controller.StudentController  - /getAllStudents : 
+83875 [http-nio-8080-exec-1] INFO  md.ciocana.hibernate.controller.StudentController  - /createStudent : student saved to database
+110656 [http-nio-8080-exec-3] INFO  md.ciocana.hibernate.controller.StudentController  - /getAllStudents : 
+130017 [http-nio-8080-exec-5] INFO  md.ciocana.hibernate.controller.StudentController  - /getAllStudentsByName : studentList successfully retrieved
+183343 [http-nio-8080-exec-7] INFO  md.ciocana.hibernate.controller.StudentController  - /deleteStudentByName : deleted vlad
