@@ -10,8 +10,7 @@ import javax.persistence.Id;
 @Entity
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class Student {
 
     @Id

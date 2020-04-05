@@ -4,15 +4,9 @@ import md.ciocana.hibernate.entity.Student;
 import md.ciocana.hibernate.repository.StudentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class StudentController {
@@ -31,7 +25,8 @@ public class StudentController {
     @RequestMapping(value = "/deleteStudentByName", method = RequestMethod.GET)
     public Map<String, Object> deleteStudentByName(@RequestParam(value = "name") String name) {
 
-        String methodName = new Object() {}
+        String methodName = new Object() {
+        }
                 .getClass()
                 .getEnclosingMethod()
                 .getName();
@@ -54,11 +49,12 @@ public class StudentController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/createStudent", method = RequestMethod.GET)
-    public Map<String, Object> createStudent(@RequestParam(value = "name") String name,
-                                             @RequestParam(value = "age") int age) {
+    @GetMapping(value = "/createStudent")
+    public Map<String, Object> createStudent(@RequestParam String name,
+                                             @RequestParam int age) {
 
-        String methodName = new Object() {}
+        String methodName = new Object() {
+        }
                 .getClass()
                 .getEnclosingMethod()
                 .getName();
@@ -77,14 +73,15 @@ public class StudentController {
             studentRepository.save(student);
             log.info(controllerName + "student saved to database");
             resultMap.put(status, statusSuccess);
-            resultMap.put("studentId", student.getId().toString());
+            resultMap.put("student", student);
         }
         return resultMap;
     }
 
-    @RequestMapping(value = "/getAllStudents", method = RequestMethod.GET)
+    @GetMapping(value = "/getAllStudents")
     public Map<String, Object> getAllStudents() {
-        String methodName = new Object() {}
+        String methodName = new Object() {
+        }
                 .getClass()
                 .getEnclosingMethod()
                 .getName();
@@ -107,9 +104,10 @@ public class StudentController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getAllStudentsByName", method = RequestMethod.GET)
+    @GetMapping(value = "/getAllStudentsByName")
     public Map<String, Object> getAllStudentsByName(@RequestParam(value = "name") String name) {
-        String methodName = new Object() {}
+        String methodName = new Object() {
+        }
                 .getClass()
                 .getEnclosingMethod()
                 .getName();
@@ -129,9 +127,38 @@ public class StudentController {
             return resultMap;
         } else {
             List<Student> studentList = optionalStudentList.get();
-            log.info(controllerName + studentListStr +" successfully retrieved");
+            log.info(controllerName + studentListStr + " successfully retrieved");
             resultMap.put(status, statusSuccess);
             resultMap.put(studentListStr, studentList);
+        }
+
+        return resultMap;
+    }
+
+    @GetMapping(value = "/getStudentByName")
+    public Map<String, Object> getStudentByName(@RequestParam String name) {
+        String methodName = new Object() {
+        }
+                .getClass()
+                .getEnclosingMethod()
+                .getName();
+
+        String controllerName = "/" + methodName + " : ";
+
+        LinkedHashMap<String, Object> resultMap = new LinkedHashMap<>();
+
+        Student student = studentRepository.findByName(name);
+
+        if (student == null) {
+            String failMessage = " student with this name not found";
+            resultMap.put(status, statusFailed);
+            resultMap.put(message, controllerName + failMessage);
+            log.warn(controllerName + failMessage);
+        } else {
+
+            resultMap.put(status, statusSuccess);
+            resultMap.put("student", student);
+            log.info(controllerName+ " tat normal");
         }
 
         return resultMap;

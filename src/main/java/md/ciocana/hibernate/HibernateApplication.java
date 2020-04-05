@@ -6,11 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages =
-		{"md.ciocana.hibernate",
-				"md.ciocana.hibernate.repository",
-				"md.ciocana.hibernate.entity",
-				"md.ciocana.hibernate.controller"})
+@SpringBootApplication
 @Configuration
 @EnableAspectJAutoProxy
 @EnableJpaRepositories
